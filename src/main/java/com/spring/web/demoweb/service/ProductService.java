@@ -19,5 +19,9 @@ public class ProductService {
 		return products;
 	}
 
+	public Product getProductByID(int prodID) {
+		return products.stream().filter(p -> p.getProdID() == prodID).findFirst().orElse(new Product(prodID, "No item",0));
+	}
+	
 	
 }
