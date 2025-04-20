@@ -2,10 +2,13 @@ package com.spring.web.demoweb.modal;
 
 import org.springframework.stereotype.Component;
 
-//@Data
-//@AllArgsConstructor
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 @Component
+@Entity
 public class Product {
+	@Id
 	private int prodID;
 	private String prodName;
 	private int prodPrize;

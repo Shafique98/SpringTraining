@@ -4,47 +4,39 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.web.demoweb.modal.Product;
+import com.spring.web.demoweb.repository.ProductRepository;
 
 @Service
 public class ProductService {
-	List<Product> products = new ArrayList<>(Arrays.asList(
-			new Product(101, "Iphone", 5000),
-			new Product(102, "Canon", 45000),
-			new Product(103, "Microphone", 5450)));
+
+	@Autowired
+	ProductRepository productRepository;
+
+	List<Product> products = new ArrayList<>(Arrays.asList(new Product(101, "Iphone", 5000),
+			new Product(102, "Canon", 45000), new Product(103, "Microphone", 5450)));
 
 	public List<Product> getProducts() {
-		return products;
+		return productRepository.findAll();
 	}
 
 	public Product getProductByID(int prodID) {
-		return products.stream().filter(p -> p.getProdID() == prodID).findFirst().orElse(new Product(prodID, "No item",0));
+		return productRepository.findById(prodID).orElse(new Product());
 	}
-	
+
 	public void addProduct(Product product) {
-		products.add(product);
+		productRepository.save(product);
 	}
 
 	public void updateProduct(Product product) {
-		int index = 0;
-		for(int i=0; i< products.size(); i++) {
-			if(products.get(i).getProdID() == product.getProdID()) {
-				index = i;
-			}
-		}
-		products.set(index, product);
+		productRepository.save(product);
 	}
 
 	public void deleteProduct(int prodID) {
-		int index = 0;
-		for(int i=0; i< products.size(); i++) {
-			if(products.get(i).getProdID() == prodID) {
-				index = i;
-			}
-		}
-		products.remove(index);
-		
+		productRepository.deleteById(prodID);
+
 	}
 }
