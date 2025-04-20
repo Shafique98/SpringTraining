@@ -31,5 +31,9 @@ public class ProductController {
 		return productService.getProductByID(prodID);
 	}
 
-	
+	@PostMapping("/products")
+	public void addProduct(@RequestBody Product product) {
+		productService.addProduct(product);
+	}
+}
 }

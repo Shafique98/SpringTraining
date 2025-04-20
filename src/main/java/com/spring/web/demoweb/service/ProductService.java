@@ -23,5 +23,9 @@ public class ProductService {
 		return products.stream().filter(p -> p.getProdID() == prodID).findFirst().orElse(new Product(prodID, "No item",0));
 	}
 	
+	public void addProduct(Product product) {
+		products.add(product);
+	}
+
 	
 }
